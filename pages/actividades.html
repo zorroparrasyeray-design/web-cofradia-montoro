@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades y Calendario | Cofradía del Stmo. Cristo Resucitado</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        .calendar-section {
+            margin-bottom: 50px;
+        }
+
+        .calendar-section h2 {
+            color: var(--color-rojo);
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            border-bottom: 3px solid var(--color-rojo);
+            padding-bottom: 15px;
+        }
+
+        .periodo-box {
+            background: linear-gradient(135deg, var(--color-marfil) 0%, #ffffff 100%);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--color-rojo);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .periodo-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--color-rojo);
+        }
+
+        .periodo-emoji {
+            font-size: 2em;
+        }
+
+        .periodo-titulo {
+            flex: 1;
+        }
+
+        .periodo-titulo h3 {
+            color: var(--color-rojo);
+            font-size: 1.4em;
+            margin-bottom: 5px;
+        }
+
+        .periodo-fecha {
+            color: var(--color-gris-oscuro);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .actividades-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .actividad-item-cal {
+            background: var(--color-blanco);
+            padding: 18px;
+            border-radius: 6px;
+            border-left: 4px solid var(--color-rojo);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .actividad-item-cal:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(220, 20, 60, 0.15);
+        }
+
+        .actividad-nombre-cal {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--color-negro);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .actividad-desc-cal {
+            color: var(--color-gris-oscuro);
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .semana-santa-highlight {
+            background: linear-gradient(135deg, #DC143C 0%, #a00000 100%);
+            color: var(--color-blanco);
+            padding: 40px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(220, 20, 60, 0.3);
+        }
+
+        .semana-santa-highlight h2 {
+            color: var(--color-blanco);
+            border: none;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .estacion-gloria {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 6px;
+            backdrop-filter: blur(10px);
+        }
+
+        .estacion-gloria h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .hora-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 12px 0;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .recorrido-info {
+            background: var(--color-gris);
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .recorrido-info h4 {
+            color: var(--color-rojo);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .paso-procesional {
+            background: var(--color-marfil);
+            padding: 20px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid var(--color-rojo);
+        }
+
+        .paso-procesional h4 {
+            color: var(--color-rojo);
+            margin-bottom: 10px;
+        }
+
+        .paso-procesional p {
+            color: var(--color-gris-oscuro);
+            font-size: 0.95em;
+        }
+
+        .info-importante {
+            background: #fff9e6;
+            border-left: 4px solid #FFA500;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .info-importante h4 {
+            color: #FF6B00;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .info-importante p {
+            color: var(--color-gris-oscuro);
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            .semana-santa-highlight {
+                padding: 25px;
+            }
+
+            .semana-santa-highlight h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-text">
+                        <h1>🔔 Cofradía del Stmo. Cristo Resucitado</h1>
+                        <p>Montoro, Córdoba</p>
+                    </div>
+                </div>
+                <nav class="nav">
+                    <ul class="nav-menu">
+                        <li><a href="../index.html" class="nav-link">Inicio</a></li>
+                        <li><a href="sobre.html" class="nav-link">Sobre Nosotros</a></li>
+                        <li><a href="junta.html" class="nav-link">Junta</a></li>
+                        <li><a href="actividades.html" class="nav-link">Actividades</a></li>
+                        <li><a href="galeria.html" class="nav-link">Galería</a></li>
+                        <li><a href="nuevo-hermano.html" class="nav-link">Hermano</a></li>
+                        <li><a href="tienda.html" class="nav-link">Tienda</a></li>
+                        <li><a href="contacto.html" class="nav-link">Contacto</a></li>
+                        <li><a href="../admin/index.html" class="nav-link admin-link">⚙️ Admin</a></li>
+                    </ul>
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO PAGE -->
+    <section class="page-hero">
+        <h1>📅 Actividades y Calendario</h1>
+        <p>Cultos, eventos y celebraciones anuales</p>
+    </section>
+
+    <!-- CONTENIDO -->
+    <div class="page-content">
+        <!-- DESTACADO: SEMANA SANTA -->
+        <section class="calendar-section">
+            <div class="semana-santa-highlight">
+                <h2>🕊️ SEMANA SANTA 2024</h2>
+                <p style="font-size: 1.1em; margin-bottom: 25px; opacity: 0.95;">
+                    Evento central de la Cofradía del Santísimo Cristo Resucitado
+                </p>
+                <div class="estacion-gloria">
+                    <h3>Estación de Gloria del Santísimo Cristo Resucitado</h3>
+                    <p style="margin-bottom: 20px; font-size: 1em;">
+                        Procesión solemne que proclama la Resurrección del Señor por las calles de Montoro
+                    </p>
+                    
+                    <div class="hora-box">
+                        🗓️ Domingo de Resurrección, 2024
+                    </div>
+                    <div class="hora-box">
+                        🕊️ Hora de Salida: Aproximadamente 10:30 h
+                    </div>
+                    <div class="hora-box">
+                        ⛪ Hora de Recogida: Aproximadamente 13:30 h
+                    </div>
+                    
+                    <div class="info-importante">
+                        <h4>⚠️ Importante</h4>
+                        <p>
+                            Los horarios pueden estar sujetos a modificaciones por la organización de la estación de gloria. Consulta las redes sociales para confirmación.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECORRIDO DE LA PROCESIÓN -->
+        <section class="calendar-section">
+            <h2>🗺️ Recorrido de la Procesión</h2>
+            
+            <div class="recorrido-info">
+                <h4>📍 Ruta de la Estación de Gloria</h4>
+                <p style="margin-bottom: 20px; color: var(--color-gris-oscuro);">
+                    La procesión del Santísimo Cristo Resucitado realiza un recorrido por las principales calles del centro histórico de Montoro.
+                </p>
+                
+                <div class="paso-procesional">
+                    <h4>🧭 Punto de Partida</h4>
+                    <p>
+                        <strong>Ermita de la Virgen de Gracia</strong> - Sede canónica de la Cofradía
+                    </p>
+                </div>
+
+                <div class="paso-procesional">
+                    <h4>📍 Recorrido Principal</h4>
+                    <p>
+                        Desciende desde la ermita hacia el barrio de la Virgen de Gracia, atravesando las principales arterias del casco histórico de Montoro.
+                    </p>
+                </div>
+
+                <div class="paso-procesional">
+                    <h4>🏁 Punto Final</h4>
+                    <p>
+                        <strong>Iglesia Parroquial</strong> - Recogida y clausura de la Estación de Gloria
+                    </p>
+                </div>
+
+                <div class="info-importante">
+                    <h4>ℹ️ Mapa Interactivo</h4>
+                    <p>
+                        Próximamente disponible mapa interactivo con el recorrido exacto.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PASOS PROCESIONALES -->
+        <section class="calendar-section">
+            <h2>🎭 Pasos Procesionales</h2>
+            
+            <div class="paso-procesional">
+                <h4>🔔 Paso del Santísimo Cristo Resucitado</h4>
+                <p>
+                    <strong>Único paso procesional de la cofradía</strong>
+                </p>
+                <p style="margin-top: 12px;">
+                    Representa el misterio central de la Resurrección. Obra de Amadeo Ruiz Olmos (1966). Acompañado por:
+                </p>
+                <ul style="margin-left: 25px; margin-top: 12px; line-height: 1.8;">
+                    <li><strong>Ángel Anunciador de la Resurrección</strong></li>
+                    <li><strong>Santa María Magdalena</strong> (2016)</li>
+                    <li><strong>Guardia Romana</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CALENDARIO ANUAL COMPLETO -->
+        <section class="calendar-section">
+            <h2>📆 Calendario Anual de Cultos y Actos</h2>
+            
+            <!-- CUARESMA -->
+            <div class="periodo-box">
+                <div class="periodo-header">
+                    <div class="periodo-emoji">✝️</div>
+                    <div class="periodo-titulo">
+                        <h3>Cuaresma</h3>
+                        <p class="periodo-fecha">Marzo - Abril (Según calendario litúrgico)</p>
+                    </div>
+                </div>
+                <div class="actividades-list">
+                    <div class="actividad-item-cal">
+                        <div class="actividad-nombre-cal">⛪ Solemne Triduo</div>
+                        <div class="actividad-desc-cal">
+                            Celebración eucarística con predicación y preparación espiritual para la Semana Santa.
+                        </div>
+                    </div>
+                    <div class="actividad-item-cal">
+                        <div class="actividad-nombre-cal">🔔 Preparación de la Estación de Gloria</div>
+                        <div class="actividad-desc-cal">
+                            Reuniones de hermanos y organización del cortejo.
+                        </div>
+                    </div>
+                    <div class="actividad-item-cal">
+                        <div class="actividad-nombre-cal">🙏 Veneración del Santísimo Cristo</div>
+                        <div class="actividad-desc-cal">
+                            Acto de oración personal ante el Titular.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEMANA SANTA -->
+            <div class="periodo-box" style="border-left-color: #FFD700; background: linear-gradient(135deg, #FFF8DC 0%, #FFFACD 100%);">
+                <div class="periodo-header" style="border-bottom: 2px solid #FFD700;">
+                    <div class="periodo-emoji">🌿</div>
+                    <div class="periodo-titulo">
+                        <h3 style="color: #FF6B00;">Semana Santa</h3>
+                        <p class="periodo-fecha">Domingo de Resurrección (Semana Mayor)</p>
+                    </div>
+                </div>
+                <div class="actividades-list">
+                    <div class="actividad-item-cal" style="border-left-color: #FFD700;">
+                        <div class="actividad-nombre-cal" style="color: #FF6B00;">🕊️ Estación de Gloria</div>
+                        <div class="actividad-desc-cal">
+                            Procesión gloriosa por las calles de Montoro. Salida: 10:30h | Recogida: 13:30h
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TIEMPO PASCUAL -->
+            <div class="periodo-box">
+                <div class="periodo-header">
+                    <div class="periodo-emoji">🌸</div>
+                    <div class="periodo-titulo">
+                        <h3>Tiempo Pascual</h3>
+                        <p class="periodo-fecha">Abril - Mayo</p>
+                    </div>
+                </div>
+                <div class="actividades-list">
+                    <div class="actividad-item-cal">
+                        <div class="actividad-nombre-cal">🙌 Acción de Gracias</div>
+                        <div class="actividad-desc-cal">
+                            Celebraciones por la Resurrección y agradecimiento comunitario.
+                        </div>
+                    </div>
+                    <div class="actividad-item-cal">
+                        <div class="actividad-nombre-cal">🌿 Cruz de Mayo</div>
+                        <div class="actividad-desc-cal">
+                            Tradicional celebración con actuaciones folclóricas y convivencia.
+                        </div>
+                    </div>
+                    <div class="actividad-item-cal">
+                        <div class="actividad-nombre-cal">🚴 Día de la Bicicleta</div>
+                        <div class="actividad-desc-cal">
+                            Actividad lúdica y deportiva para hermanos y familias.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VERANO -->
+            <div class="periodo-box" style="border-left-color: #FF8C00;">
+                <div class="periodo-header" style="border-bottom: 2px solid #FF8C00;">
+                    <div class="periodo-emoji">☀️</div>
+                    <div class="periodo-titulo">
+                        <h3 style="color: #FF6B00;">Verano</h3>
+                        <p class="periodo-fecha">Junio - Agosto</p>
+                    </div>
+                </div>
+                <div class="actividades-list">
+                    <div class="actividad-item-cal" style="border-left-color: #FF8C00;">
+                        <div class="actividad-nombre-cal">🎪 Caseta de Feria</div>
+                        <div class="actividad-desc-cal">
+                            Participación en las fiestas de Montoro.
+                        </div>
+                    </div>
+                    <div class="actividad-item-cal" style="border-left-color: #FF8C00;">
+                        <div class="actividad-nombre-cal">🍇 Catas de Vino</div>
+                        <div class="actividad-desc-cal">
+                            Degustación de productos locales y convivencia.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OTOÑO -->
+            <div class="periodo-box" style="border-left-color: #FF6347;">
+                <div class="periodo-header" style="border-bottom: 2px solid #FF6347;">
+                    <div class="periodo-emoji">🍂</div>
+                    <div class="periodo-titulo">
+                        <h3 style="color: #A0522D;">Otoño</h3>
+                        <p class="periodo-fecha">Septiembre - Noviembre</p>
+                    </div>
+                </div>
+                <div class="actividades-list">
+                    <div class="actividad-item-cal" style="border-left-color: #FF6347;">
+                        <div class="actividad-nombre-cal">📚 Nuevo Curso Cofrade</div>
+                        <div class="actividad-desc-cal">
+                            Arranque de actividades y planificación del ciclo.
+                        </div>
+                    </div>
+                    <div class="actividad-item-cal" style="border-left-color: #FF6347;">
+                        <div class="actividad-nombre-cal">📋 Reuniones de Junta</div>
+                        <div class="actividad-desc-cal">
+                            Encuentros para planificación administrativa.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADVIENTO Y NAVIDAD -->
+            <div class="periodo-box" style="border-left-color: #228B22;">
+                <div class="periodo-header" style="border-bottom: 2px solid #228B22;">
+                    <div class="periodo-emoji">❄️</div>
+                    <div class="periodo-titulo">
+                        <h3 style="color: #228B22;">Adviento y Navidad</h3>
+                        <p class="periodo-fecha">Diciembre</p>
+                    </div>
+                </div>
+                <div class="actividades-list">
+                    <div class="actividad-item-cal" style="border-left-color: #228B22;">
+                        <div class="actividad-nombre-cal">🎄 Convivencia Navideña</div>
+                        <div class="actividad-desc-cal">
+                            Celebraciones y encuentros fraternales.
+                        </div>
+                    </div>
+                    <div class="actividad-item-cal" style="border-left-color: #228B22;">
+                        <div class="actividad-nombre-cal">🙏 Preparación Espiritual</div>\n                        <div class=\"actividad-desc-cal\">\n                            Actividades litúrgicas para el nuevo ciclo.\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </section>\n\n        <!-- INFORMACIÓN GENERAL -->\n        <section class=\"calendar-section\">\n            <h2>ℹ️ Información General</h2>\n            <div style=\"background: var(--color-gris); padding: 25px; border-radius: 8px; line-height: 1.8;\">\n                <p style=\"margin-bottom: 15px;\">\n                    <strong>La Cofradía desarrolla a lo largo del año una serie de cultos, actos y encuentros</strong> que conforman su vida espiritual y organizativa.\n                </p>\n                <p>\n                    Para obtener más información sobre participación o colaboración, contacta con nosotros a través de los medios disponibles.\n                </p>\n            </div>\n        </section>\n    </div>\n\n    <!-- FOOTER -->\n    <footer class=\"footer\">\n        <div class=\"container\">\n            <div class=\"footer-content\">\n                <div class=\"footer-section\">\n                    <h4>Contacto</h4>\n                    <p>📧 resucitadodemontoro@gmail.com</p>\n                    <p>📱 +34 673 83 65 57</p>\n                </div>\n                <div class=\"footer-section\">\n                    <h4>Ubicación</h4>\n                    <p>Ermita de la Virgen de Gracia</p>\n                    <p>C/ Virgen de Gracia, 22</p>\n                    <p>14600 Montoro (Córdoba)</p>\n                </div>\n                <div class=\"footer-section\">\n                    <h4>Redes Sociales</h4>\n                    <div class=\"social-links\">\n                        <a href=\"#\" class=\"social-link\">📘 Facebook</a>\n                        <a href=\"#\" class=\"social-link\">📷 Instagram</a>\n                        <a href=\"#\" class=\"social-link\">🎥 YouTube</a>\n                    </div>\n                </div>\n            </div>\n            <div class=\"footer-bottom\">\n                <p>&copy; 2024 Cofradía del Stmo. Cristo Resucitado. Todos los derechos reservados.</p>\n            </div>\n        </div>\n    </footer>\n\n    <script src=\"../js/main.js\"></script>\n</body>\n</html>
